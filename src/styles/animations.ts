@@ -30,8 +30,11 @@ export const scaleIn: Variants = {
 
 // Stagger container for lists
 export const staggerContainer: Variants = {
+  initial: {},
   animate: {
-    staggerChildren: 0.05,
+    transition: {
+      staggerChildren: 0.05,
+    },
   },
 }
 
@@ -58,5 +61,5 @@ export const springConfig = {
 // Ease config for standard animations
 export const easeConfig = {
   duration: 0.15,
-  ease: 'easeOut',
+  ease: 'easeOut' as const,
 }

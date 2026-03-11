@@ -3,22 +3,12 @@ const nextConfig = {
   // Enable React strict mode for better development experience
   reactStrictMode: true,
 
-  // Image optimization configuration
+  // Static export for deployment
+  output: 'export',
+
+  // Image optimization configuration (disabled for static export)
   images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: '*.supabase.co',
-      },
-      {
-        protocol: 'https',
-        hostname: 'github.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 'avatars.githubusercontent.com',
-      },
-    ],
+    unoptimized: true,
   },
 
   // Experimental features
@@ -28,4 +18,4 @@ const nextConfig = {
   },
 }
 
-module.exports = nextConfig
+export default nextConfig
