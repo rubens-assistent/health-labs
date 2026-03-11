@@ -2,196 +2,221 @@
 
 > Das HealthTech Startup-Verzeichnis für Deutschland
 
-## Vision
-
-Eine Plattform, die deutsche HealthTech Startups sichtbar macht:
-- **Entdecken** — Neue Startups, Trends, Innovationen
-- **Präsentieren** — Profile, Team, Funding, Revenue
-- **Verbinden** — Investoren, Gründer, Talente
-- **Verkaufen** — M&A-Marktplatz für Startups
+![Next.js](https://img.shields.io/badge/Next.js-14-black?style=flat&logo=next.js)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue?style=flat&logo=typescript)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4-38B2AC?style=flat&logo=tailwind-css)
+![Supabase](https://img.shields.io/badge/Supabase-PostgreSQL-3ECF8E?style=flat&logo=supabase)
+![License](https://img.shields.io/badge/License-MIT-green?style=flat)
 
 ---
 
-## Design-Referenzen
+## 📖 Übersicht
 
-| Site | Was wir übernehmen |
-|------|-------------------|
-| **Seedtable.com** | Listen, Filter, Funding-Daten |
-| **TrustMRR.com** | Revenue, Rankings, Sales-Daten |
-| **heymessage.framer.ai** | Clean, modern, smooth UI |
+HealthStart DE ist eine Plattform zur Entdeckung und Präsentation deutscher HealthTech Startups.
 
----
+**Features:**
 
-## Tech-Stack
-
-| Layer | Technologie |
-|-------|-------------|
-| Frontend | Next.js 14, React 18, TypeScript |
-| Styling | Tailwind CSS, shadcn/ui |
-| Backend | Supabase (PostgreSQL) |
-| Auth | Supabase Auth |
-| Hosting | Vercel |
-| APIs | Crunchbase, Stripe (später) |
+- 📊 **Startup-Verzeichnis** — Funding-Daten, Stage, Team, Location
+- 🔍 **Filter & Suche** — Nach Industry, Stage, Funding filtern
+- 📰 **News & Updates** — Funding-News, Partnerschaften, Exits
+- 🌍 **International** — Auch internationale Startups mit DE-Fokus
+- 📱 **Responsive Design** — Mobile-first, Desktop-optimiert
+- 🌙 **Dark Mode** — Moderne UI mit Dark Mode Standard
 
 ---
 
-## Pages (MVP)
+## 🛠️ Tech Stack
 
-### `/` — Home
-- Hero: "Deutsche HealthTech Startups entdecken"
-- Featured Startups (3-6)
-- Stats: X Startups, €X Funding, X gegründet
-- CTA: "Startup eintragen" / "Alle ansehen"
-
-### `/startups` — Verzeichnis
-- Filter: Stage, Funding, Location, Industry
-- Suche: Name, Beschreibung
-- Liste: Logo, Name, Funding, Stage, Location
-- Sortierung: Newest, Most Funded, Trending
-
-### `/startup/[slug]` — Profil
-- Header: Logo, Name, Tagline, Website
-- Daten: Funding, Revenue, Stage, Founded
-- Team: Gründer mit LinkedIn
-- Beschreibung: Langtext
-- News: Updates, Milestones
-
-### `/news` — Blog
-- Neue Startups
-- Funding-News
-- M&A-Updates
-- Industry-Insights
-
-### `/login` — Auth
-- Signup/Login (Email, Google)
-- Premium: Mehr Daten, Kontakt, M&A-Access
+| Layer | Technologie | Beschreibung |
+|-------|-------------|--------------|
+| **Framework** | [Next.js 14](https://nextjs.org/) | App Router, SSR, SEO |
+| **Language** | [TypeScript](https://www.typescriptlang.org/) | Type Safety |
+| **Styling** | [Tailwind CSS](https://tailwindcss.com/) | Utility-first, Dark Mode |
+| **Components** | [shadcn/ui](https://ui.shadcn.com/) | Accessible, Customizable |
+| **Icons** | [Lucide React](https://lucide.dev/) | Modern, Tree-shakeable |
+| **Animations** | [Framer Motion](https://www.framer.com/motion/) | Smooth transitions |
+| **Database** | [Supabase](https://supabase.com/) | PostgreSQL + Auth |
+| **Hosting** | [Vercel](https://vercel.com/) | Auto-deploy, Edge |
+| **Package Manager** | [pnpm](https://pnpm.io/) | Fast, Efficient |
 
 ---
 
-## Daten-Modell
+## 📁 Projektstruktur
 
-### Startups
-```sql
-id              uuid PRIMARY KEY
-name            text NOT NULL
-slug            text UNIQUE
-tagline         text
-description     text
-website         text
-logo_url        text
-funding         decimal
-revenue         decimal
-stage           text (pre-seed, seed, series-a, etc.)
-founded_year    int
-location        text
-industry        text[]
-team_size       int
-crunchbase_id   text
-featured        boolean
-created_at      timestamp
-updated_at      timestamp
 ```
-
-### Founders
-```sql
-id            uuid PRIMARY KEY
-startup_id    uuid REFERENCES startups
-name          text
-role          text
-linkedin      text
-bio           text
-```
-
-### News
-```sql
-id            uuid PRIMARY KEY
-title         text
-content       text
-startup_id    uuid REFERENCES startups
-published_at  timestamp
+healthstart-de/
+├── .github/
+│   └── workflows/
+│       ├── ci.yml              # Lint + Type Check
+│       └── deploy.yml          # Vercel Deploy
+│
+├── public/                     # Static Assets
+│
+├── src/
+│   ├── app/                    # Next.js App Router
+│   │   ├── layout.tsx          # Root Layout
+│   │   ├── page.tsx            # Landing Page
+│   │   └── globals.css         # Global Styles
+│   │
+│   ├── components/             # React Components
+│   │   ├── ui/                 # shadcn/ui Komponenten
+│   │   ├── layout/             # Header, Footer, Nav
+│   │   ├── startup/            # Startup Cards, Grids
+│   │   ├── news/               # News Components
+│   │   └── shared/             # Shared Components
+│   │
+│   ├── hooks/                  # Custom React Hooks
+│   │   ├── useStartups.ts
+│   │   ├── useSearch.ts
+│   │   └── useMediaQuery.ts
+│   │
+│   ├── lib/                    # Utils & Libraries
+│   │   ├── supabase/           # Supabase Clients
+│   │   ├── utils.ts            # Helper Functions
+│   │   └── constants.ts        # App Constants
+│   │
+│   ├── types/                  # TypeScript Types
+│   │   ├── startup.ts
+│   │   └── api.ts
+│   │
+│   └── styles/                 # Animations & Themes
+│       └── animations.ts
+│
+├── supabase/
+│   ├── migrations/             # Database Migrations
+│   ├── seed/                   # Seed Data
+│   └── config.toml             # Supabase Config
+│
+├── .env.local.example          # Environment Template
+├── .gitignore
+├── package.json
+├── tailwind.config.ts
+├── tsconfig.json
+└── README.md
 ```
 
 ---
 
-## MVP Roadmap
+## 🚀 Quick Start
 
-### Phase 1: Setup (Tag 1-2)
-- [ ] Next.js Projekt erstellen
-- [ ] Supabase Verbindung
-- [ ] Tailwind + shadcn/ui Setup
-- [ ] Basis-Layout
+### Voraussetzungen
 
-### Phase 2: Core (Tag 3-7)
-- [ ] Home Page
-- [ ] Startups Liste
-- [ ] Startup Profil
-- [ ] Erste 20 Startups einpflegen
+- Node.js 18+ 
+- pnpm 9+
+- Supabase Account
 
-### Phase 3: Polish (Tag 8-14)
-- [ ] Design finalisieren
-- [ ] Filter & Suche
-- [ ] News/Blog
-- [ ] Mobile-optimiert
-
-### Phase 4: Launch
-- [ ] Deploy auf Vercel
-- [ ] Domain verbinden
-- [ ] SEO-Setup
-- [ ] Erste 50+ Startups
-
----
-
-## Quick Start
+### Installation
 
 ```bash
-# Projekt öffnen
-cd /data/.openclaw/workspace/projects/healthstart-de
+# Repository klonen
+git clone https://github.com/YOUR_USERNAME/healthstart-de.git
+cd healthstart-de
 
-# Next.js erstellen
-npx create-next-app@latest . --typescript --tailwind --app
+# Dependencies installieren
+pnpm install
 
-# Dependencies
-pnpm add @supabase/supabase-js
-pnpm add lucide-react class-variance-authority clsx tailwind-merge
+# Environment Variables kopieren
+cp .env.local.example .env.local
 
-# Supabase Setup
-# 1. Neues Projekt auf supabase.com
-# 2. .env.local mit Credentials
-# 3. Tabellen erstellen
+# .env.local editieren mit Supabase Credentials
+# NEXT_PUBLIC_SUPABASE_URL=your-project-url
+# NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+# SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
 
-# Dev Server
+# Development Server starten
 pnpm dev
 ```
 
----
+### Supabase Setup
 
-## Verantwortlichkeiten
-
-| Agent | Aufgabe |
-|-------|---------|
-| **Linus 🚀** | Projekt-Owner, Design, Content |
-| **Momo 🐶** | Coding, Tech-Implementation |
-| **Tony 🔧** | Research, Daten-Sourcing |
-| **James 🎩** | Koordination, Entscheidungen |
+1. Neues Projekt auf [supabase.com](https://supabase.com) erstellen
+2. SQL Migrations ausführen (supabase/migrations/)
+3. Seed Data laden (supabase/seed/)
+4. Environment Variables setzen
 
 ---
 
-## Erfolgsmetriken
+## 📊 Database Schema
 
-| Metric | Ziel (MVP) | Ziel (3 Monate) |
-|--------|------------|-----------------|
-| Startups | 50 | 500 |
-| Pageviews | 1.000/Monat | 50.000/Monat |
-| Signups | 10 | 500 |
-| Premium | 0 | 50 |
+### Tables
+
+| Table | Beschreibung |
+|-------|--------------|
+| `startups` | Haupt-Tabelle für Startup-Daten |
+| `founders` | Gründer mit Relation zu Startups |
+| `news` | News & Updates mit Relation zu Startups |
+| `stats` | Materialisierte View für Statistiken |
+
+### Row Level Security
+
+- Public Read Access für alle aktiven Startups
+- Admin Write Access via Service Role Key
 
 ---
 
-## Kontakt
+## 🧪 Development
 
-- **Project Owner:** Linus 🚀
-- **Orchestrator:** James 🎩
-- **User:** Ruben Tollmann
+```bash
+# Development Server
+pnpm dev
+
+# Type Check
+pnpm type-check
+
+# Lint
+pnpm lint
+
+# Format
+pnpm format
+
+# Build
+pnpm build
+```
+
+---
+
+## 📝 Commit Convention
+
+```
+feat:     Neue Features
+fix:      Bug fixes
+style:    Design/CSS changes
+refactor: Code refactoring
+docs:     Documentation
+chore:    Maintenance tasks
+```
+
+---
+
+## 🌐 Deployment
+
+Automatisches Deployment via GitHub Actions + Vercel:
+
+1. Push auf `main` → Production Deploy
+2. Push auf `develop` → Preview Deploy
+
+### Vercel Setup
+
+1. Vercel CLI: `pnpm i -g vercel`
+2. Login: `vercel login`
+3. Deploy: `vercel --prod`
+
+---
+
+## 📄 License
+
+MIT License — siehe [LICENSE](LICENSE) für Details.
+
+---
+
+## 👥 Team
+
+| Agent | Rolle |
+|-------|-------|
+| **Linus 🚀** | Project Owner, Design |
+| **Momo 🐶** | Development, Tech |
+| **Tony 🔧** | Research, Data |
+| **James 🎩** | Coordination |
 
 ---
 
